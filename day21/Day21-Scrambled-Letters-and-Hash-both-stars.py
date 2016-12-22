@@ -1,3 +1,10 @@
+
+# coding: utf-8
+
+# In[11]:
+
+import itertools
+
 class Scrambler:
     def __init__(self,operations,password):
         self.operations = operations
@@ -90,13 +97,37 @@ def read_input(filename):
             operations.append(line[:-1])
     return operations
 
-def star(operations,pw_input):
+def star1(operations,pw_input):
     scrambler = Scrambler(operations,pw_input)
     scrambler.run()
     return scrambler.pw
 
+def star2(operations,scr_pw):
+    all_pw = list(itertools.permutations(["a", "b", "c", "d", "e", "f", "g", "h"]))
+    passwords = []
+    for i in all_pw:
+        uns_pw = i[0] + i[1] + i[2] + i[3] + i[4] + i[5] + i[6] + i[7]
+        scrambler = Scrambler(operations,uns_pw)
+        scrambler.run()
+        if scrambler.pw == scr_pw:
+            print "Found the un-scrambled password: %s" %uns_pw
+            passwords.append(uns_pw)
+    return passwords
+
 if __name__ == '__main__':
     INPUT = read_input('./input.txt')
     pw_input = 'abcdefgh'
-    print("Star 1: ", star(INPUT,pw_input))
+    print("Star 1: ", star1(INPUT,pw_input))
+    scr_pw = 'fbgdceah'
+    print("Star 2: ", star2(INPUT,scr_pw))
+
+
+# In[ ]:
+
+
+
+
+# In[ ]:
+
+
 
